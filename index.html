@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>openalias solver</title>
+    <script>
+
+        
+        const regex = /=(.*?);/;
+        var a, b, c, match;
+
+
+        function makeRequest() {
+            var username = document.getElementById("input1").value;
+            const url = `https://cloudflare-dns.com/dns-query?name=${username}&type=TXT`;
+            const headers = {
+                'Accept': 'application/dns-json'
+            };
+
+            fetch(url, { headers })
+                .then(response => response.json())
+                .then(data => {
+                const txtData = data.Answer[0].data;
+                a = data.Answer.length;
+                for (var i = 0; i < a; i++) 
+                {
+                    if (data.Answer[i].data.includes("oa1:"))
+                    {
+                        b = data.Answer[i].data;
+                        c = regex.exec(b);
+                         console.log("i tuoi indirizzi sono: ", b);
+                         console.warn(c[i+1]);
+                        match = b.match(regex);
+                        console.warn(match[i]);
+                        console.error(match[i+1]);
+                        
+                    }
+                    
+                }undefined
+                // console.log(txtData);
+                // console.warn(a);
+                })
+                .catch(error => console.error(error));
+            }
+
+
+
+    </script>
+    <link rel="icon" type="image/x-icon" href="https://openalias.org/favicon.ico">
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+
+  </head>
+
+  <body>
+    <form>
+            <label for="input1">inserisci il tuo openalias</label> <br> <br>
+            <input type="text" id="input1"><br> <br>
+            <button type="button" class="button" onclick="makeRequest()" onsubmit="makeRequest()">invia</button><br> <br>
+    </form>
+    
+  </body>
+</html>
