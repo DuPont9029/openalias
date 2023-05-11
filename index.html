@@ -8,7 +8,14 @@
         const regex = /=(.*?);/;
         var a, b, c, indirizzo = [];
 
-
+        function copy(address)
+        {
+          // Copy the text inside the text field
+            navigator.clipboard.writeText(address);
+          
+          // Alert the copied text
+          alert("Hai copiato l'indirizzo: " + address);
+        }
         
 
 
@@ -49,17 +56,15 @@
 
                         console.log(crypto);
                         
-                        indirizzo.push(crypto);
-                        indirizzo.push(porzioneStringa);
-                        
+                        indirizzo.push({ label: crypto, address: porzioneStringa });
                         console.log(indirizzo);
-
                     }
                     
                 }undefined
                 // console.log(txtData);
                 // console.warn(a);
 
+                displayAddresses();
                 
 
                 indirizzo = [];
@@ -67,6 +72,20 @@
                 .catch(error => console.error(error));
           
         }
+
+        function displayAddresses() {
+            var output = document.getElementById("output");
+            output.innerHTML = ""; // Resetta il contenuto dell'elemento di output
+
+            for (var i = 0; i < indirizzo.length; i++) {
+                var label = indirizzo[i].label;
+                var address = indirizzo[i].address;
+                var addressHTML = `<strong>${label}:</strong> <span class="pippo" onclick="copy('${address}')">${address}</span><br><br>`;
+                output.innerHTML += addressHTML;
+            }
+        }
+
+
 
     </script>
     <link rel="icon" type="image/x-icon" href="https://openalias.org/favicon.ico">
@@ -81,20 +100,92 @@
             color: #000000;
         }
 
+        .destra {
+        text-align: right;
+        }
+
+      .centro {
+        text-align: center;
+        }
+
+        .class {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        overflow: hidden;
+      }
+
+      .pippo {
+        color: orangered
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        color: #ffffff;
+        background-color: #ff6600; /* Colore arancione */
+        border: none;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #00aaff; /* Colore azzurro */
+      }
+
+      .button:active {
+        transform: translateY(2px);
+      }
+
+      .button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #00aaff; /* Effetto di ombreggiatura quando il bottone è in focus */
+      }
+
+
+      .input-field {
+        border: 1px solid #00aaff; /* Colore azzurro */
+        text-align: center;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: #ff6600; /* Colore arancione */
+        box-shadow: 0 0 5px #ff6600; /* Effetto di ombreggiatura quando l'input è in focus */
+      }
+
+      .title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #ff6600; /* Colore arancione */
+          margin-bottom: 20px;
+        }
+
+
     </style>
 
   </head>
 
   <body>
+    <header class="destra">
+        <a href="https://github.com/DuPont9029"><img src="https://raw.githubusercontent.com/DuPont9029/equ2g/main/github.ico" class="class destra"></a>
+        <h1 class="centro title">OPENSOLVER</h1>
+      </header> <br> <br>
+
 
     <form>
-            <label for="input1">inserisci il tuo openalias</label> <br> <br>
-            <input type="text" id="input1"><br> <br>
+            <label for="input1">inserisci il tuo openalias:</label> <br> <br>
+            <input type="text" class="input-field" id="input1"><br> <br>
             <button type="button" class="button" onclick="makeRequest()" onsubmit="makeRequest()">invia</button><br> <br>
     </form>
     
-
-    <div id="mydiv">
+    <br> <br> <br> <br> <br>
+    <div id="output">
 
     </div>
 
