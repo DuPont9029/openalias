@@ -5,9 +5,12 @@
     <title>openalias solver</title>
     <script>
 
-        
         const regex = /=(.*?);/;
-        var a, b, c, match;
+        var a, b, c, indirizzo = [];
+
+
+        
+
 
 
         function makeRequest() {
@@ -20,6 +23,7 @@
             fetch(url, { headers })
                 .then(response => response.json())
                 .then(data => {
+                console.clear();
                 const txtData = data.Answer[0].data;
                 a = data.Answer.length;
                 for (var i = 0; i < a; i++) 
@@ -28,17 +32,37 @@
                     {
                         b = data.Answer[i].data;
                         c = regex.exec(b);
-                         console.log("i tuoi indirizzi sono: ", b);
-                         console.warn(c[i+1]);
-                        match = b.match(regex);
-                        console.warn(match[i]);
-                        console.error(match[i+1]);
+                        console.log("i tuoi indirizzi sono: ", b);
                         
+                        const stringa = b;
+                        const inizio = stringa.indexOf("=") + 1; // Trova l'indice di inizio di "42"
+                        const fine = stringa.indexOf(";"); // Trova l'indice di fine di "w" e aggiunge 1
+
+
+/* vede prof? */        const porzioneStringa = stringa.substring(inizio, fine);
+                        console.log(porzioneStringa); //boono
+                        
+                        const crypto1 = stringa.indexOf("oa1:") + 4;
+                        const crypto2 = stringa.indexOf(" recipient_address=") + 1;
+
+/* vede prof? */        const crypto = stringa.substring(crypto1, crypto2);
+
+                        console.log(crypto);
+                        
+                        indirizzo.push(crypto);
+                        indirizzo.push(porzioneStringa);
+                        
+                        console.log(indirizzo);
+
                     }
                     
                 }undefined
                 // console.log(txtData);
                 // console.warn(a);
+
+                
+
+                indirizzo = [];
                 })
                 .catch(error => console.error(error));
             }
@@ -48,19 +72,32 @@
     </script>
     <link rel="icon" type="image/x-icon" href="https://openalias.org/favicon.ico">
     <style>
+
         body {
             text-align: center;
         }
+
+        mydiv {
+            text-align: center;
+            color: #000000;
+        }
+
     </style>
 
   </head>
 
   <body>
+
     <form>
             <label for="input1">inserisci il tuo openalias</label> <br> <br>
             <input type="text" id="input1"><br> <br>
             <button type="button" class="button" onclick="makeRequest()" onsubmit="makeRequest()">invia</button><br> <br>
     </form>
     
+
+    <div id="mydiv">
+
+    </div>
+
   </body>
 </html>
