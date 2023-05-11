@@ -8,7 +8,7 @@
         
         const regex = /=(.*?);/;
         var a, b, c, match;
-        var u = '=', i = ';'
+        
         
         function strextract(a, inix, fin)
         {
@@ -37,7 +37,7 @@
                     if (data.Answer[i].data.includes("oa1:"))
                     {
                         b = data.Answer[i].data;
-                        c = strextract(b, u, i);
+                        c = strextract(b, '=, ';')
                          console.log("i tuoi indirizzi sono: ", b);
                          console.log(c);
                          
@@ -50,8 +50,7 @@
                 // console.warn(a);
                 })
                 .catch(error => console.error(error));
-            }
-
+          
 
 
     </script>
