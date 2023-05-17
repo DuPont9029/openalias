@@ -13,7 +13,7 @@ html:
 ~~~
 
 ### CDN documentation:
-o use the openalias resolving function, you will need to import the script, to do this paste the import script above:
+in order to use the openalias resolving function, you will need to import the script, to do this paste the import script above:
 ~~~
 <script src="https://cdn.jsdelivr.net/gh/DuPont9029/opensolver/CDN.js"></script>
 ~~~
