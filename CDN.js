@@ -1,4 +1,5 @@
 const regex = /=(.*?);/;
+var addresses = [];
 
 function makeRequest(username) {
   const url = `https://cloudflare-dns.com/dns-query?name=${username}&type=TXT`;
@@ -9,7 +10,7 @@ function makeRequest(username) {
   return fetch(url, { headers })
     .then(response => response.json())
     .then(data => {
-      const addresses = [];
+      //const addresses = [];
       for (let i = 0; i < data.Answer.length; i++) {
         const answer = data.Answer[i];
         if (answer.data.includes("oa1:")) {
