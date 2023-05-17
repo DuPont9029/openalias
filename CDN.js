@@ -1,5 +1,6 @@
 const regex = /=(.*?);/;
-var addresses = [];
+var addresses = [], cr = [], awc;
+
 
 function makeRequest(username) {
   const url = `https://cloudflare-dns.com/dns-query?name=${username}&type=TXT`;
@@ -42,9 +43,10 @@ function removeCrypto(addresses) { // ["xmr:123", "btc:456"] -> ["123", "456"]
 function openalias(str) {
 makeRequest(str)
   .then(result => {
+    cr = result;
     console.log(result); // ["xmr:123", "btc:456"]
-    const addressesWithoutCrypto = removeCrypto(result);
-    console.log(addressesWithoutCrypto); // ["123", "456"]
+    awc = removeCrypto(result);
+    console.log(awc); // ["123", "456"]
 
     // do whatever you want with the arrays
 
