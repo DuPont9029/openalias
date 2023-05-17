@@ -1,5 +1,5 @@
 const regex = /=(.*?);/;
-var addresses = [], cr = [], awc;
+var addresses = [], cr = [], awc = [];
 
 
 function makeRequest(username) {
