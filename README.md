@@ -1,5 +1,5 @@
 # openalias
-an openalias checker written in js
+an openalias solver written in js
 
 ## CDN:
 if you want to use this OpenAlias resolver in other HTML files, maybe you will be interested in my CDN. You can find below both the link and how to import it into your HTML file.
